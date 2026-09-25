@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.625rem;
+  }
+}
+
+:root {
+  --paper: #fdfcf5;
+  --ink: #0a0a0a;
+  --lime: #def722;
+  --lime-deep: #c0f424;
+  --siren: #ff3b1f;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: 'Anton', 'Space Grotesk', sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.font-mono-label {
+  font-family: 'Space Mono', monospace;
+}
+
+::selection {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+/* ---- hard-shadow sticker buttons ---- */
+.sticker {
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.sticker:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 var(--ink);
+}
+.sticker:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* ---- marquee ---- */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-speed, 22s) linear infinite;
+}
+.marquee-reverse {
+  animation-direction: reverse;
+}
+.marquee-paused:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ---- entrance reveal ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- spinning star badge ---- */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.spin-slow {
+  animation: spin-slow 14s linear infinite;
+}
+
+/* ---- wobble for headline on hover ---- */
+@keyframes wobble {
+  0%, 100% { transform: rotate(-1.2deg); }
+  50% { transform: rotate(1.2deg); }
+}
+.wobble:hover {
+  animation: wobble 0.5s ease-in-out infinite;
+}
+
+/* ---- halftone dots texture ---- */
+.halftone {
+  background-image: radial-gradient(rgba(10, 10, 10, 0.14) 1.2px, transparent 1.2px);
+  background-size: 14px 14px;
+}
+
+/* ---- outlined giant footer text ---- */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--ink);
+}
+
+/* ---- progress bar shine ---- */
+@keyframes shine {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
+.progress-shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: shine 1.8s ease-in-out infinite;
+}
+
+/* ---- signature card entrance ---- */
+@keyframes pop-in {
+  0% { transform: scale(0.6) rotate(-6deg); opacity: 0; }
+  100% { transform: scale(1) rotate(var(--tilt, 0deg)); opacity: 1; }
+}
+.pop-in {
+  animation: pop-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ---- ticker flash for newest signature ---- */
+@keyframes flash-lime {
+  0%, 100% { background: var(--lime); }
+  50% { background: #ffffff; }
+}
+.flash-lime {
+  animation: flash-lime 1s ease-in-out 2;
+}
